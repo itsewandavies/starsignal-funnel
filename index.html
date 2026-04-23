@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Reveal Your Cosmic Blueprint | Star Signal</title>
+    <meta name="description" content="Discover what the cosmos encoded into your birth date. Get your free personalized cosmic reading today.">
+    
+    <!-- Google Fonts: Cormorant Garamond (Serif) & Inter (Sans-Serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --bg-cream: #FDFBF7;
+            --bg-alt: #F6F3EC;
+            --text-main: #2C2828;
+            --text-muted: #5A5252;
+            --accent-lavender: #D8D0E3;
+            --accent-lavender-light: #F0EBF5;
+            --accent-rose: #E8D1D1;
+            --accent-rose-light: #F7EFEF;
+            --accent-gold: #D4AF37;
+            --accent-gold-dark: #B89600;
+            --footer-bg: #2B233D; /* Deep midnight purple */
+            --white: #FFFFFF;
+            
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+            
+            --shadow-sm: 0 4px 12px rgba(44, 40, 40, 0.03);
+            --shadow-md: 0 8px 24px rgba(44, 40, 40, 0.06);
+            --shadow-lg: 0 12px 32px rgba(212, 175, 55, 0.25);
+            
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-full: 9999px;
+            
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        img, svg {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font-family: inherit;
+            border: none;
+            cursor: pointer;
+            background: none;
+        }
+
+        /* ==========================================================================
+           TYPOGRAPHY
+           ========================================================================== */
+        h1, h2, h3, h4, .brand-logo {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            line-height: 1.15;
+            color: var(--text-main);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: clamp(1rem, 2.5vw, 1.125rem);
+            color: var(--text-muted);
+        }
+
+        .pre-headline {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-gold-dark);
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        /* ==========================================================================
+           COMPONENTS & UTILITIES
+           ========================================================================== */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        .text-center { text-align: center; }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 380px;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            color: var(--white);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            font-weight: 600;
+            font-size: 1.125rem;
+            padding: 1.25rem 2rem;
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #E8C86A 0%, var(--accent-gold) 100%);
+            opacity: 0;
+            z-index: -1;
+            transition: var(--transition-smooth);
+            border-radius: var(--radius-full);
+        }
+
+        .cta-button:hover, .cta-button:active {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        .trust-line {
+            font-size: 0.8125rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .privacy-note {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0.8;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        @keyframes pulseGlow {
+            0% { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.3)); transform: scale(1); opacity: 0.8; }
+            100% { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.6)); transform: scale(1.05); opacity: 1; }
+        }
+
+        /* ==========================================================================
+           HEADER & HERO
+           ========================================================================== */
+        .social-proof-bar {
+            background-color: var(--accent-rose-light);
+            text-align: center;
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-main);
+            letter-spacing: 0.02em;
+        }
+
+        .social-proof-bar span {
+            color: var(--accent-gold-dark);
+            letter-spacing: 0.1em;
+            margin-right: 4px;
+        }
+
+        header {
+            padding: 1rem 1.25rem 0.5rem 1.25rem;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background: transparent;
+            position: relative;
+            z-index: 10;
+        }
+
+        .brand-logo {
+            font-size: 1.35rem;
+            font-style: italic;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand-logo svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-gold);
+        }
+
+        .hero {
+            position: relative;
+            padding: 1.5rem 0 4rem 0; 
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Background Stars CSS */
+        .bg-star {
+            position: absolute;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            animation: twinkle 4s infinite ease-in-out;
+            z-index: 0;
+        }
+        .star-1 { top: 15%; left: 10%; width: 3px; height: 3px; animation-delay: 0s; }
+        .star-2 { top: 25%; right: 15%; width: 4px; height: 4px; animation-delay: 1s; }
+        .star-3 { top: 60%; left: 15%; width: 2px; height: 2px; animation-delay: 2s; }
+        .star-4 { top: 50%; right: 10%; width: 3px; height: 3px; animation-delay: 0.5s; }
+        .star-5 { top: 5%; left: 80%; width: 2px; height: 2px; animation-delay: 1.5s; }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .hero-icon-visual {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 1rem auto;
+            animation: pulseGlow 4s infinite alternate ease-in-out;
+            color: var(--accent-gold);
+        }
+
+        .hero-subhead {
+            margin-bottom: 2rem;
+            font-size: 1.0625rem;
+            font-weight: 400;
+        }
+
+        .hero-cta-wrapper {
+            margin-top: 1rem;
+        }
+
+        /* ==========================================================================
+           STICKY MOBILE CTA
+           ========================================================================== */
+        .sticky-cta-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(253, 251, 247, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem 1.25rem;
+            box-shadow: 0 -8px 24px rgba(0,0,0,0.06);
+            z-index: 100;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .sticky-cta-container.show {
+            transform: translateY(0);
+        }
+
+        .sticky-cta-container .cta-button {
+            padding: 1rem 1.5rem;
+            font-size: 1.0625rem;
+            max-width: 100%;
+        }
+
+        /* ==========================================================================
+           MEDIA QUERIES (Desktop Enhancements)
+           ========================================================================== */
+        @media (min-width: 768px) {
+            .hero { padding: 2rem 0 4rem 0; }
+            .sticky-cta-container { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Social Proof Bar -->
+    <div class="social-proof-bar">
+        <span>★★★★★</span> 2,847,391 readings completed
+    </div>
+
+    <!-- Header -->
+    <header class="container">
+        <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="currentColor"/>
+            </svg>
+            Star Signal
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero container">
+            <!-- Decorative Stars Background -->
+            <div class="bg-star star-1"></div>
+            <div class="bg-star star-2"></div>
+            <div class="bg-star star-3"></div>
+            <div class="bg-star star-4"></div>
+            <div class="bg-star star-5"></div>
+
+            <div class="hero-content fade-in">
+                <!-- Celestial Hero Icon -->
+                <div class="hero-icon-visual">
+                    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 5 L53 35 L80 20 L60 45 L95 50 L60 55 L80 80 L53 65 L50 95 L47 65 L20 80 L40 55 L5 50 L40 45 L20 20 L47 35 Z" fill="var(--accent-gold)" opacity="0.4"/>
+                        <circle cx="50" cy="50" r="22" fill="var(--bg-cream)" stroke="var(--accent-gold)" stroke-width="2"/>
+                        <path d="M58 32 A 15 15 0 0 0 58 68 A 18 18 0 0 1 58 32" fill="var(--accent-gold-dark)"/>
+                        <circle cx="50" cy="50" r="2" fill="var(--accent-gold)"/>
+                    </svg>
+                </div>
+
+                <span class="pre-headline">✨ Free Cosmic Reading</span>
+                <h1>Your Birth Date Hides A Secret</h1>
+                
+                <p class="hero-subhead">Free 90-second reading reveals the destiny, soulmate, and hidden purpose encoded into the moment you were born.</p>
+
+                <div class="hero-cta-wrapper fade-in delay-1">
+                    <button class="cta-button" id="primary-cta" onclick="startQuiz()">
+                        ✨ Reveal My Cosmic Blueprint &rarr;
+                    </button>
+                    <div class="trust-line">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        Takes 90 seconds · 100% free
+                    </div>
+                    <div class="privacy-note">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        We never share your information. Unsubscribe anytime.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: var(--footer-bg); color: var(--white); padding: 4rem 1.25rem; text-align: center; margin-top: 4rem;">
+        <div class="container">
+            <div style="font-family: var(--font-heading); font-size: 1.5rem; font-style: italic; margin-bottom: 0.5rem; color: var(--accent-gold);">Star Signal</div>
+            <div style="font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-bottom: 2rem;">Illuminate your cosmic path.</div>
+            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 0 auto;">
+                © 2026 Star Signal. All rights reserved.<br><br>
+                Star Signal readings are intended for personal reflection and entertainment. They are not a substitute for professional medical, financial, or psychological guidance. Results vary.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Mobile CTA -->
+    <div class="sticky-cta-container" id="stickyCta">
+        <button class="cta-button" onclick="startQuiz()">
+            ✨ Start My Free Reading &rarr;
+        </button>
+        <div class="privacy-note" style="margin-top: 0.4rem;">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            We never share your information.
+        </div>
+    </div>
+
+    <!-- Minimal JS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Intersection Observer for fade-in elements
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Sticky CTA Logic
+            const mainCta = document.getElementById('primary-cta');
+            const stickyContainer = document.getElementById('stickyCta');
+            
+            if (mainCta && stickyContainer) {
+                const ctaObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (window.innerWidth < 768) {
+                            if (!entry.isIntersecting && entry.boundingClientRect.bottom < 0) {
+                                stickyContainer.classList.add('show');
+                            } else {
+                                stickyContainer.classList.remove('show');
+                            }
+                        }
+                    });
+                }, { threshold: 0 });
+
+                ctaObserver.observe(mainCta);
+                
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 768) {
+                        stickyContainer.classList.remove('show');
+                    }
+                });
+            }
+        });
+
+        function startQuiz() {
+            window.location.href = '/quiz';
+        }
+    </script>
+</body>
+</html>

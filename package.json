@@ -1,0 +1,13 @@
+{
+  "name": "starsignal-funnel",
+  "version": "1.0.0",
+  "description": "Star Signal - Astrological Blueprint Sales Funnel",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx http-server -p 3000 -o",
+    "deploy": "vercel deploy --prod"
+  },
+  "keywords": ["astrology", "numerology", "cosmic"],
+  "author": "Star Signal",
+  "license": "MIT"
+}
