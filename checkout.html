@@ -442,5 +442,25 @@ form.addEventListener('submit', async function(e) {
 });
 </script>
 
+<!-- Meta Pixel & CAPI Tracking Integration -->
+<script src="tracking.js"></script>
+<script>
+    // Track purchase completion
+    document.getElementById('payment-form').addEventListener('submit', function() {
+        const email = document.getElementById('email').value;
+        const fullname = document.getElementById('fullname').value;
+        const firstName = fullname.split(' ')[0];
+        
+        if (window.StarSignalTracking && window.StarSignalTracking.trackPurchase) {
+            window.StarSignalTracking.trackPurchase({
+                email,
+                firstName,
+                amount: 19,
+                orderId: 'ss_' + Date.now(),
+            });
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -1008,5 +1008,48 @@ initializeDatePicker();
 updateUI();
 </script>
 
+<!-- Meta Pixel & CAPI Tracking Integration -->
+<script src="tracking.js"></script>
+<script>
+    // Track quiz submission
+    function submitQuiz() {
+        const btnNext = document.getElementById('btn-next');
+        btnNext.disabled = true;
+        btnNext.innerHTML = '<span class="loading-spinner"></span>';
+        
+        // Show loading animation
+        document.getElementById('loading-animation').style.display = 'block';
+        
+        // Track quiz completion
+        if (window.StarSignalTracking && window.StarSignalTracking.trackQuizComplete) {
+            window.StarSignalTracking.trackQuizComplete({
+                email: quizData.q9,
+                firstName: quizData.q9 ? quizData.q9.split('@')[0] : 'User',
+                q6: quizData.q6,
+                q7: quizData.q7,
+                q3: quizData.q3,
+            });
+        }
+        
+        // Send to results page
+        const params = new URLSearchParams({
+            q1: quizData.q1,
+            q2: quizData.q2,
+            q3: quizData.q3,
+            q4: quizData.q4 || 'unknown',
+            q5: quizData.q5,
+            q6: quizData.q6,
+            q7: quizData.q7,
+            q8: quizData.q8.join(','),
+            q9: quizData.q9,
+        });
+        
+        // Simulate 3-5 second loading
+        setTimeout(() => {
+            window.location.href = `results.html?${params.toString()}`;
+        }, 3500);
+    }
+</script>
+
 </body>
 </html>
