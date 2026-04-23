@@ -1,13 +1,20 @@
 {
   "name": "starsignal-funnel",
   "version": "1.0.0",
-  "description": "Star Signal - Astrological Blueprint Sales Funnel",
+  "description": "Star Signal - Cosmic Blueprint reading funnel",
   "main": "index.html",
   "scripts": {
-    "dev": "npx http-server -p 3000 -o",
-    "deploy": "vercel deploy --prod"
+    "dev": "python -m http.server 3000",
+    "build": "echo 'Static site, no build needed'"
   },
-  "keywords": ["astrology", "numerology", "cosmic"],
-  "author": "Star Signal",
-  "license": "MIT"
+  "keywords": [
+    "astrology",
+    "numerology",
+    "cosmic",
+    "funnel",
+    "sales"
+  ],
+  "author": "Ewan Davies",
+  "license": "UNLICENSED",
+  "private": true
 }

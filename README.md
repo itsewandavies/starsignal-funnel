@@ -1,44 +1,42 @@
-# Star Signal - Cosmic Blueprint Sales Funnel
+# Star Signal - Cosmic Blueprint Funnel
 
-A high-converting astrology/numerology reading funnel built for Vercel.
+Production funnel for the Star Signal cosmic reading product at **starsignal.co**.
 
-## Structure
+## Architecture
 
-- **index.html** - Landing page with hero, benefits, testimonials
-- **quiz.html** - 9-question interactive quiz with dynamic progress
-- **/api** - Backend endpoints (quiz submission, PDF generation, Whop integration)
+### Pages
 
-## Deployment
+1. **Landing Page (index.html)** - Initial hero page with testimonials and CTAs
+2. **Quiz Page** - 9-question personality & preference quiz (to be built)
+3. **Results Page** - Dynamic personalized results based on quiz answers (to be built)
+4. **Checkout Page** - $19 offer with payment processing (to be built)
+
+### Deployment
+
+- **Domain**: starsignal.co
+- **Host**: Vercel
+- **Repo**: itsewandavies/starsignal-funnel
+
+## Development
 
 ```bash
-# Deploy to Vercel
-npm run deploy
+# Local development
+npm run dev
 
-# Or via Vercel CLI
-vercel deploy --prod
+# Visit http://localhost:3000
 ```
 
-## Environment Variables
+## Key Features
 
-Set these in Vercel project settings:
+- **100% Static First Section** - index.html renders perfectly as-is
+- **Quiz System** - Captures birth date, time, location, and life preferences
+- **Dynamic Results** - Personalized reading generated based on quiz answers
+- **Segmentation** - Routes users to different OTO (One-Time Offer) sequences based on life area selection (Love, Money, Purpose, Spiritual)
 
-- `SUPABASE_URL` - Supabase project URL
-- `SUPABASE_SERVICE_KEY` - Service role key for backend operations
-- `WHOP_API_KEY` - Whop API key for affiliate integration
+## Build & Deploy
 
-## Features
+Deployed automatically to Vercel on push to `main` branch.
 
-✨ Mystical design system with cosmic animations
-✨ 9-step psychological commitment quiz
-✨ Dynamic segmentation (Love/Money/Purpose/Spiritual)
-✨ Personalized results page with Life Path calculation
-✨ $19 sales pitch page with multiple CTAs
-✨ Mobile-optimized with sticky CTA
+---
 
-## Domain
-
-starsignal.co
-
-## Product Integration
-
-Hosted as a product in EarnHive platform for commission tracking.
+**Status**: Core landing page complete. Quiz & results pages in development.

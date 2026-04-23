@@ -191,6 +191,21 @@
             gap: 0.25rem;
         }
 
+        .verified-badge {
+            font-size: 0.75rem;
+            color: #7A7A7A;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .verified-badge svg {
+            width: 12px; height: 12px;
+            color: #5bb35e; /* Subdued green for authenticity */
+        }
+
         /* Animations */
         .fade-in {
             opacity: 0;
@@ -210,6 +225,11 @@
         @keyframes twinkle {
             0%, 100% { opacity: 0.2; transform: scale(1); }
             50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         @keyframes pulseGlow {
@@ -263,6 +283,7 @@
 
         .hero {
             position: relative;
+            /* Aggressively reduced top padding to bring content up */
             padding: 1.5rem 0 4rem 0; 
             overflow: hidden;
             text-align: center;
@@ -308,6 +329,346 @@
         }
 
         /* ==========================================================================
+           SOCIAL PROOF STRIP (Pill Block)
+           ========================================================================== */
+        .social-strip {
+            padding: 0 1.25rem 3rem 1.25rem;
+            background: transparent;
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .trust-pill {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: var(--white);
+            border: 1px solid var(--accent-lavender);
+            border-radius: var(--radius-lg);
+            padding: 1.25rem 2rem;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            margin-top: -2rem; /* Pulls slightly up into the hero section */
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .rating-stars {
+            display: flex;
+            gap: 4px;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+            justify-content: center;
+        }
+
+        .rating-stars svg { width: 20px; height: 20px; fill: currentColor; }
+        
+        .trust-heading {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .trust-sub {
+            font-size: 0.875rem;
+            color: var(--accent-gold-dark);
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           DISCOVER SECTION (Benefits)
+           ========================================================================== */
+        .section-padding { padding: 4rem 0; }
+        
+        .bg-alt { background-color: var(--bg-alt); }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            padding: 1.75rem 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-lavender);
+        }
+
+        .benefit-icon {
+            width: 56px; height: 56px;
+            margin-bottom: 1.25rem;
+            color: var(--accent-gold-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .benefit-icon svg { width: 100%; height: 100%; }
+
+        .benefit-card h3 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .benefit-card p {
+            font-size: 0.9375rem;
+            margin-top: 0.25rem;
+        }
+
+        /* ==========================================================================
+           HOW IT WORKS
+           ========================================================================== */
+        .steps-container {
+            margin-top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .step-item {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .step-number {
+            width: 72px; height: 72px;
+            background: var(--white);
+            border: 2px solid var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--accent-gold-dark);
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .step-item h3 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .step-item p { font-size: 0.9375rem; }
+
+        .steps-container::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            background: linear-gradient(to bottom, transparent, var(--accent-gold-dark), transparent);
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        /* ==========================================================================
+           TESTIMONIALS (Grid & Hero)
+           ========================================================================== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .test-stars {
+            display: flex;
+            gap: 2px;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+        .test-stars svg { width: 16px; height: 16px; fill: currentColor; }
+
+        .test-quote {
+            font-style: italic;
+            font-size: 1.0625rem;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .test-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* 40px placeholder photo circles */
+        .test-avatar {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            /* Backgrounds to be swapped with actual photos via JS/CSS later */
+        }
+
+        .bg-pastel-1 { background: linear-gradient(135deg, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%); }
+        .bg-pastel-2 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+        .bg-pastel-3 { background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); opacity: 0.8; }
+        .bg-pastel-4 { background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%); }
+
+        .test-info h4 {
+            font-family: var(--font-body);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+
+        .test-info p {
+            font-size: 0.8125rem;
+        }
+
+        /* --- HERO TESTIMONIAL --- */
+        .hero-testimonial-wrapper {
+            margin-top: 4rem; /* Spacing below the grid */
+        }
+        
+        .hero-testimonial-card {
+            background: var(--bg-cream);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* clips the image nicely to border radius */
+            text-align: left;
+        }
+
+        .hero-testimonial-img-wrapper {
+            width: 100%;
+            height: 350px;
+        }
+
+        .hero-testimonial-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 20%;
+        }
+
+        .hero-testimonial-content {
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-testimonial-quote {
+            font-family: var(--font-body);
+            font-size: 1.0625rem;
+            font-style: italic;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-testimonial-author h4 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-testimonial-meta {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        /* ==========================================================================
+           FINAL CTA & FOOTER
+           ========================================================================== */
+        .final-cta {
+            padding: 5rem 1.25rem;
+            background: linear-gradient(to bottom, var(--bg-cream), var(--accent-lavender-light));
+            text-align: center;
+        }
+
+        .final-cta .cta-button { margin-top: 2rem; }
+
+        footer {
+            background: var(--footer-bg);
+            color: var(--white);
+            padding: 4rem 1.25rem 6rem 1.25rem; /* Extra bottom padding for sticky CTA */
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+
+        .footer-tagline {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.8);
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--white); }
+
+        .disclaimer {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ==========================================================================
            STICKY MOBILE CTA
            ========================================================================== */
         .sticky-cta-container {
@@ -341,9 +702,55 @@
         /* ==========================================================================
            MEDIA QUERIES (Desktop Enhancements)
            ========================================================================== */
-        @media (min-width: 768px) {
+        @media (min-width: 500px) {
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
             .hero { padding: 2rem 0 4rem 0; }
+        }
+
+        @media (min-width: 768px) {
+            .steps-container {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+            .steps-container::before {
+                top: 36px; bottom: auto;
+                left: 10%; width: 80%;
+                height: 3px;
+                background: linear-gradient(to right, transparent, var(--accent-gold-dark), transparent);
+                transform: none;
+            }
+            .step-item { flex: 1; padding: 0 1rem; }
+            
+            .testimonials-grid { grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+            
+            /* Hero Testimonial Desktop Layout */
+            .hero-testimonial-wrapper {
+                padding: 0 1.5rem;
+            }
+            .hero-testimonial-card {
+                flex-direction: row;
+            }
+            .hero-testimonial-img-wrapper {
+                flex: 0 0 40%;
+                height: auto;
+            }
+            .hero-testimonial-content {
+                flex: 0 0 60%;
+                padding: 3.5rem 4rem;
+            }
+            .hero-testimonial-quote {
+                font-size: 1.25rem;
+            }
+            
+            /* Crucial: Hide sticky CTA entirely on desktop screens */
             .sticky-cta-container { display: none !important; }
+            footer { padding-bottom: 4rem; }
+            
+            .trust-pill { padding: 1.5rem 4rem; margin-top: -3rem; }
+        }
+        
+        @media (min-width: 1024px) {
+            .benefits-grid { grid-template-columns: repeat(4, 1fr); }
         }
     </style>
 </head>
@@ -375,6 +782,7 @@
             <div class="bg-star star-5"></div>
 
             <div class="hero-content fade-in">
+                
                 <!-- Celestial Hero Icon -->
                 <div class="hero-icon-visual">
                     <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -391,7 +799,7 @@
                 <p class="hero-subhead">Free 90-second reading reveals the destiny, soulmate, and hidden purpose encoded into the moment you were born.</p>
 
                 <div class="hero-cta-wrapper fade-in delay-1">
-                    <button class="cta-button" id="primary-cta" onclick="startQuiz()">
+                    <button class="cta-button" id="primary-cta" onclick="alert('Quiz starts here — to be built next')">
                         ✨ Reveal My Cosmic Blueprint &rarr;
                     </button>
                     <div class="trust-line">
@@ -405,23 +813,336 @@
                 </div>
             </div>
         </section>
+
+        <!-- Social Proof Strip -->
+        <div class="social-strip fade-in delay-2">
+            <div class="container text-center">
+                <div class="trust-pill">
+                    <div class="rating-stars">
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <div class="trust-heading">4.9/5 from 2,847,391 women</div>
+                    <div class="trust-sub">✨ 237 readings unlocked in the last hour</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- What You'll Discover Section -->
+        <section class="section-padding bg-alt">
+            <div class="container text-center">
+                <h2 class="fade-in">Your Free Reading Will Reveal...</h2>
+                
+                <div class="benefits-grid">
+                    <!-- Card 1 -->
+                    <div class="benefit-card fade-in delay-1">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M50 10 L55 35 L80 50 L55 65 L50 90 L45 65 L20 50 L45 35 Z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M25 50 Q 50 20 75 50 Q 50 80 25 50 Z" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="8" fill="currentColor" opacity="0.6"/>
+                                <circle cx="50" cy="50" r="14" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 3"/>
+                            </svg>
+                        </div>
+                        <h3>Your Life Path Number</h3>
+                        <p>Discover the core digit that defines your deepest personality and ultimate life purpose.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="benefit-card fade-in delay-2">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="38" cy="50" r="25" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="62" cy="50" r="25" stroke="currentColor" stroke-width="2"/>
+                                <path d="M50 28 L55 45 L70 50 L55 55 L50 72 L45 55 L30 50 L45 45 Z" fill="currentColor" opacity="0.6"/>
+                                <circle cx="50" cy="50" r="3" fill="var(--bg-alt)"/>
+                            </svg>
+                        </div>
+                        <h3>Your Soulmate's Initial</h3>
+                        <p>Astrological markers point to the specific energetic signature of your perfect match.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="benefit-card fade-in delay-3">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="24" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4"/>
+                                <path d="M50 20 L53 38 L70 50 L53 62 L50 80 L47 62 L30 50 L47 38 Z" fill="currentColor" opacity="0.6"/>
+                                <path d="M45 42 L55 42 M45 58 L55 58 M50 35 L50 65" stroke="var(--bg-alt)" stroke-width="2"/>
+                                <circle cx="50" cy="50" r="4" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>Wealth Activation Window</h3>
+                        <p>Find out exactly when the cosmos aligns for your greatest financial abundance.</p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="benefit-card fade-in delay-3">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M70 30 L30 70 M30 70 L25 65 M38 62 L33 57" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                <circle cx="72" cy="28" r="12" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="72" cy="28" r="6" fill="currentColor" opacity="0.6"/>
+                                <path d="M63 37 L50 50 L55 55 L68 42" stroke="currentColor" stroke-width="1.5"/>
+                                <circle cx="45" cy="45" r="2" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3>2026 Threshold Event</h3>
+                        <p>Uncover the critical date this year when your trajectory is destined to shift.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="section-padding">
+            <div class="container text-center">
+                <h2 class="fade-in">How The Blueprint Works</h2>
+                
+                <div class="steps-container fade-in delay-1">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <h3>Share Your Birth Details</h3>
+                        <p>Tell us your exact moment of arrival on Earth.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <h3>We Decode Your Chart</h3>
+                        <p>Your birth coordinates are mapped against 4,000-year-old astrological wisdom.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <h3>Receive Your Blueprint</h3>
+                        <p>Your personalized cosmic reading is revealed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section-padding bg-alt">
+            <div class="container text-center">
+                <h2 class="fade-in">Stories Written In The Stars</h2>
+                
+                <div class="testimonials-grid">
+                    <!-- Testimonial 1 (Photo Placeholder) -->
+                    <div class="testimonial-card fade-in delay-1">
+                        <div class="test-stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="test-quote">"I cried reading page 14. It described my exact relationship with my father — something I never told anyone. It gave me the clarity I desperately needed."</p>
+                        <div class="test-author">
+                            <div class="test-avatar bg-pastel-1" data-testimonial-photo="1"></div>
+                            <div class="test-info">
+                                <h4>Becca S., 34</h4>
+                                <div class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Verified Buyer
+                                </div>
+                                <p style="margin-top:2px;">Ohio, USA</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 (Photo Placeholder) -->
+                    <div class="testimonial-card fade-in delay-2">
+                        <div class="test-stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="test-quote">"My Threshold Event window said late March. I met my fiancé on March 24th. I'm not even kidding. The accuracy is actually mind-blowing."</p>
+                        <div class="test-author">
+                            <div class="test-avatar bg-pastel-2" data-testimonial-photo="2"></div>
+                            <div class="test-info">
+                                <h4>Jennifer T., 29</h4>
+                                <div class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Verified Buyer
+                                </div>
+                                <p style="margin-top:2px;">Melbourne, AUS</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 (Photo Placeholder) -->
+                    <div class="testimonial-card fade-in delay-3">
+                        <div class="test-stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="test-quote">"I've been to real astrologers in person who charged hundreds. This was more accurate than any of them. The soulmate initial was spot on."</p>
+                        <div class="test-author">
+                            <div class="test-avatar bg-pastel-3" data-testimonial-photo="3"></div>
+                            <div class="test-info">
+                                <h4>Maria K., 41</h4>
+                                <div class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Verified Buyer
+                                </div>
+                                <p style="margin-top:2px;">Madrid, ESP</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Testimonial 4 (NO PHOTO - intentional) -->
+                    <div class="testimonial-card fade-in delay-1">
+                        <div class="test-stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="test-quote">"I was skeptical, but the life path breakdown gave me absolute goosebumps. It explained so much about why I feel the way I do."</p>
+                        <div class="test-author">
+                            <!-- Intentionally missing avatar -->
+                            <div class="test-info">
+                                <h4>Sarah M., 38</h4>
+                                <div class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Verified Buyer
+                                </div>
+                                <p style="margin-top:2px;">Toronto, CAN</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 5 (NO PHOTO - intentional) -->
+                    <div class="testimonial-card fade-in delay-2">
+                        <div class="test-stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="test-quote">"The wealth activation window helped me perfectly time a major career shift. The guidance is absolutely invaluable and beautifully presented."</p>
+                        <div class="test-author">
+                            <!-- Intentionally missing avatar -->
+                            <div class="test-info">
+                                <h4>Elena R., 45</h4>
+                                <div class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Verified Buyer
+                                </div>
+                                <p style="margin-top:2px;">London, UK</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 6 (Photo Placeholder) -->
+                    <div class="testimonial-card fade-in delay-3">
+                        <div class="test-stars">
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        </div>
+                        <p class="test-quote">"Beautifully designed and surprisingly deep. It didn't feel like a generic horoscope at all. I sent the link to all of my friends."</p>
+                        <div class="test-author">
+                            <div class="test-avatar bg-pastel-4" data-testimonial-photo="4"></div>
+                            <div class="test-info">
+                                <h4>Chloe T., 31</h4>
+                                <div class="verified-badge">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Verified Buyer
+                                </div>
+                                <p style="margin-top:2px;">Austin, USA</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Featured Testimonial Card -->
+                <div class="hero-testimonial-wrapper">
+                    <div class="hero-testimonial-card fade-in">
+                        <div class="hero-testimonial-img-wrapper">
+                            <img src="https://assets.cdn.filesafe.space/fveUHPreYRqiA1APSbJt/media/69e9ce1f717d5dd4e143a717.png" alt="Hannah M." class="hero-testimonial-img" loading="lazy">
+                        </div>
+                        <div class="hero-testimonial-content">
+                            <div class="test-stars" style="margin-bottom: 1.25rem;">
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </div>
+                            <p class="hero-testimonial-quote">"I'd been scrolling Facebook at 11pm when I saw the ad. I thought it was probably nonsense but I figured why not. The reading came through 30 seconds after I paid and I literally did not move from my couch for an hour. It mentioned a man with the initial 'D' coming into my life within 4 months. Three weeks later I matched with David on Hinge. We've been together 8 months now and he just met my parents. I'm a 36-year-old corporate lawyer. I do NOT believe in this stuff. But I cannot explain what happened."</p>
+                            <div class="hero-testimonial-author">
+                                <h4>— Hannah M., 36</h4>
+                                <div class="hero-testimonial-meta">Boston, MA · Corporate Lawyer</div>
+                                <div class="verified-badge" style="margin-top: 0.5rem;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Verified Buyer · Reading purchased June 2025
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Final CTA Block -->
+        <section class="final-cta">
+            <div class="container">
+                <h2 class="fade-in">Your Blueprint Is Waiting To Be Decoded</h2>
+                <p class="fade-in delay-1" style="max-width: 600px; margin: 0 auto; color: var(--text-main);">Take the 90-second quiz to reveal what the cosmos encoded into your birth date.</p>
+                
+                <div class="fade-in delay-2">
+                    <button class="cta-button" onclick="alert('Quiz starts here — to be built next')">
+                        ✨ Begin My Reading &rarr;
+                    </button>
+                    <div class="trust-line" style="color: var(--text-main); opacity: 0.8;">
+                        Free · No signup required · Instant results
+                    </div>
+                    <div class="privacy-note">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        We never share your information. Unsubscribe anytime.
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
-    <footer style="background: var(--footer-bg); color: var(--white); padding: 4rem 1.25rem; text-align: center; margin-top: 4rem;">
+    <footer>
         <div class="container">
-            <div style="font-family: var(--font-heading); font-size: 1.5rem; font-style: italic; margin-bottom: 0.5rem; color: var(--accent-gold);">Star Signal</div>
-            <div style="font-size: 0.875rem; color: rgba(255,255,255,0.6); margin-bottom: 2rem;">Illuminate your cosmic path.</div>
-            <div style="font-size: 0.75rem; color: rgba(255,255,255,0.4); max-width: 600px; margin: 0 auto;">
+            <div class="footer-logo">Star Signal</div>
+            <div class="footer-tagline">Illuminate your cosmic path.</div>
+            
+            <div class="footer-links">
+                <a href="#about">About</a>
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="disclaimer">
                 © 2026 Star Signal. All rights reserved.<br><br>
                 Star Signal readings are intended for personal reflection and entertainment. They are not a substitute for professional medical, financial, or psychological guidance. Results vary.
             </div>
         </div>
     </footer>
 
-    <!-- Sticky Mobile CTA -->
-    <div class="sticky-cta-container" id="stickyCta">
-        <button class="cta-button" onclick="startQuiz()">
+    <!-- Sticky Mobile CTA (Appears on scroll only on mobile) -->
+    <div class="sticky-cta-container">
+        <button class="cta-button" onclick="alert('Quiz starts here — to be built next')">
             ✨ Start My Free Reading &rarr;
         </button>
         <div class="privacy-note" style="margin-top: 0.4rem;">
@@ -430,7 +1151,7 @@
         </div>
     </div>
 
-    <!-- Minimal JS -->
+    <!-- Minimal JS for Scroll Animations & Sticky CTA Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Intersection Observer for fade-in elements
@@ -444,7 +1165,7 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+                        observer.unobserve(entry.target); // Only animate once
                     }
                 });
             }, observerOptions);
@@ -453,14 +1174,16 @@
                 observer.observe(el);
             });
 
-            // Sticky CTA Logic
+            // Sticky CTA Logic - Shows when primary CTA scrolls out of view
             const mainCta = document.getElementById('primary-cta');
-            const stickyContainer = document.getElementById('stickyCta');
+            const stickyContainer = document.querySelector('.sticky-cta-container');
             
             if (mainCta && stickyContainer) {
                 const ctaObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
+                        // Check if viewport is mobile before doing anything
                         if (window.innerWidth < 768) {
+                            // If the main CTA is scrolled above the viewport
                             if (!entry.isIntersecting && entry.boundingClientRect.bottom < 0) {
                                 stickyContainer.classList.add('show');
                             } else {
@@ -472,6 +1195,7 @@
 
                 ctaObserver.observe(mainCta);
                 
+                // Hide sticky CTA if screen is resized to desktop
                 window.addEventListener('resize', () => {
                     if (window.innerWidth >= 768) {
                         stickyContainer.classList.remove('show');
@@ -479,10 +1203,6 @@
                 });
             }
         });
-
-        function startQuiz() {
-            window.location.href = '/quiz';
-        }
     </script>
 </body>
 </html>
