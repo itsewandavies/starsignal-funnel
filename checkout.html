@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | Star Signal</title>
+    <meta name="description" content="Secure checkout for your Cosmic Blueprint reading.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+
+    <style>
+        :root {
+            --bg-cream: #FDFBF7;
+            --bg-alt: #F6F3EC;
+            --text-main: #2C2828;
+            --text-muted: #5A5252;
+            --accent-gold: #D4AF37;
+            --accent-gold-dark: #B89600;
+            --accent-lavender: #D8D0E3;
+            --white: #FFFFFF;
+            --footer-bg: #2B233D;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        header {
+            padding: 2rem 1.25rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent-gold);
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(44, 40, 40, 0.03);
+        }
+
+        h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .order-summary {
+            background: var(--bg-alt);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+            padding-top: 1rem;
+            border-top: 2px solid rgba(212, 175, 55, 0.2);
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .summary-label {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--accent-lavender);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-main);
+            background: var(--white);
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+        }
+
+        #card-element {
+            padding: 0.875rem;
+            border: 2px solid var(--accent-lavender);
+            border-radius: 8px;
+            background: var(--white);
+        }
+
+        .StripeElement {
+            box-sizing: border-box;
+            height: 40px;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            background-color: white;
+            box-shadow: 0 1px 3px 0 #e6ebf1;
+            -webkit-transition: box-shadow 150ms ease;
+            transition: box-shadow 150ms ease;
+        }
+
+        .StripeElement--focus {
+            box-shadow: 0 1px 3px 0 #cfd7df;
+            border: 2px solid var(--accent-gold);
+        }
+
+        .StripeElement--invalid {
+            border: 2px solid #fa755a;
+        }
+
+        .error-message {
+            color: #fa755a;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1.0625rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+            margin-top: 2rem;
+        }
+
+        .btn-checkout:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-checkout:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        footer {
+            background: var(--footer-bg);
+            color: var(--white);
+            padding: 2rem 1.25rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4rem;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @media (max-width: 640px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .trust-badges {
+                gap: 1rem;
+                font-size: 0.8125rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand-logo">Star Signal</div>
+</header>
+
+<main>
+    <div class="container">
+
+        <div class="section">
+            <h2>Complete Your Order</h2>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+                <div class="summary-item">
+                    <span class="summary-label">Cosmic Blueprint Reading</span>
+                    <span class="summary-value">$19</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Total</span>
+                    <span class="summary-value" style="font-size: 1.25rem;">$19</span>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="payment-form">
+                <!-- Email -->
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                </div>
+
+                <!-- Name -->
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" placeholder="Jane Doe" required>
+                </div>
+
+                <!-- Address -->
+                <div class="form-group">
+                    <label for="address">Street Address</label>
+                    <input type="text" id="address" name="address" placeholder="123 Main Street" required>
+                </div>
+
+                <!-- City, State, Zip -->
+                <div class="form-group">
+                    <div class="form-row">
+                        <div>
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="New York" required>
+                        </div>
+                        <div>
+                            <label for="state">State</label>
+                            <input type="text" id="state" name="state" placeholder="NY" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="zip">Postal Code</label>
+                    <input type="text" id="zip" name="zip" placeholder="10001" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text" id="country" name="country" placeholder="United States" required>
+                </div>
+
+                <!-- Stripe Card Element -->
+                <div class="form-group">
+                    <label for="card-element">Card Details</label>
+                    <div id="card-element"></div>
+                    <div id="card-errors" class="error-message"></div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-checkout" id="submit-btn">
+                    🔮 Complete Purchase — $19
+                </button>
+
+                <div class="success-message" id="success-msg">
+                    ✓ Payment successful! Your Cosmic Blueprint is being prepared. Check your email for the download link.
+                </div>
+            </form>
+
+            <!-- Trust Badges -->
+            <div class="trust-badges">
+                <div>🔒 SSL Secure</div>
+                <div>✓ 60-Day Guarantee</div>
+                <div>⚡ Instant Delivery</div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section">
+            <h2 style="font-size: 1.25rem;">Questions?</h2>
+            <p style="color: var(--text-muted); font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1rem;">
+                <strong>Is my payment secure?</strong> Yes. We use industry-standard SSL encryption and Stripe payment processing. Your card information is never stored on our servers.
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.9375rem; line-height: 1.7; margin-bottom: 1rem;">
+                <strong>How do I get my Blueprint?</strong> Immediately after payment, you'll receive a download link via email. You can also log in to your account to access it anytime.
+            </p>
+            <p style="color: var(--text-muted); font-size: 0.9375rem; line-height: 1.7;">
+                <strong>What if something goes wrong?</strong> Email support@starsignal.co and we'll help you right away. We're here for you.
+            </p>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    © 2026 Star Signal. All rights reserved. Readings are for entertainment.
+</footer>
+
+<script>
+// Initialize Stripe
+const stripe = Stripe('pk_test_YOUR_STRIPE_KEY'); // Replace with actual key
+const elements = stripe.elements();
+const cardElement = elements.create('card');
+cardElement.mount('#card-element');
+
+// Handle card errors
+cardElement.on('change', function(event) {
+    const displayError = document.getElementById('card-errors');
+    if (event.error) {
+        displayError.textContent = event.error.message;
+        displayError.classList.add('show');
+    } else {
+        displayError.classList.remove('show');
+    }
+});
+
+// Handle form submission
+const form = document.getElementById('payment-form');
+form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="loading-spinner"></span> Processing...';
+    
+    // In a real implementation, you would:
+    // 1. Send card details to Stripe for tokenization
+    // 2. Create a charge on your backend
+    // 3. Send the Blueprint PDF to the customer
+    // 4. Record the transaction in Supabase
+    
+    // For now, show success message
+    setTimeout(() => {
+        document.getElementById('success-msg').classList.add('show');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '✓ Payment Successful!';
+        
+        // Redirect to thank you page after 2 seconds
+        setTimeout(() => {
+            window.location.href = 'thank-you.html';
+        }, 2000);
+    }, 2000);
+});
+</script>
+
+</body>
+</html>

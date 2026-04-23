@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | Star Signal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #FDFBF7;
+            --text-main: #2C2828;
+            --text-muted: #5A5252;
+            --accent-gold: #D4AF37;
+            --accent-gold-dark: #B89600;
+            --white: #FFFFFF;
+            --footer-bg: #2B233D;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-main);
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            margin: auto;
+            padding: 3rem 1.25rem;
+            text-align: center;
+        }
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .checkmark {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: scaleIn 0.6s ease-out;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        p {
+            font-size: 1.0625rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #F0EBF5 0%, rgba(212, 175, 55, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .info-text {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.4s;
+            margin: 1rem 0.5rem;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.4);
+        }
+
+        .button-group {
+            margin: 2rem 0;
+        }
+
+        footer {
+            background: var(--footer-bg);
+            color: var(--white);
+            padding: 2rem 1.25rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: auto;
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .info-box {
+                padding: 1.5rem;
+            }
+
+            .button-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="brand-logo">Star Signal</div>
+    
+    <div class="checkmark">✓</div>
+    
+    <h1>Your Blueprint Is On Its Way!</h1>
+    
+    <p>Thank you for trusting us with your cosmic journey. Your personalized Cosmic Blueprint is being prepared and will be sent to your inbox within the next few minutes.</p>
+    
+    <div class="info-box">
+        <h3>What Happens Next</h3>
+        <div class="info-item">
+            <div class="info-icon">📧</div>
+            <div class="info-text">
+                <strong>Check Your Email</strong> — You'll receive your 40+ page Cosmic Blueprint PDF within minutes. If it doesn't arrive within 10 minutes, check your spam folder.
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon">📖</div>
+            <div class="info-text">
+                <strong>Read Your Blueprint</strong> — Open it at your own pace. Most people report it taking about 30-45 minutes to read thoroughly.
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon">✨</div>
+            <div class="info-text">
+                <strong>Discover the Details</strong> — Your Life Path Number, Soulmate Profile, Wealth Timeline, and Threshold Event are all waiting for you.
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon">🔮</div>
+            <div class="info-text">
+                <strong>Take Action</strong> — Your Blueprint includes specific dates, rituals, and guidance to activate your 2026 Threshold Event.
+            </div>
+        </div>
+    </div>
+    
+    <p style="font-style: italic; color: var(--accent-gold-dark);">Remember: You have 60 days to read your Blueprint. If it doesn't feel deeply personal and accurate, we'll refund every penny.</p>
+    
+    <div class="button-group">
+        <a href="index.html" class="btn">← Back to Home</a>
+    </div>
+    
+    <p style="margin-top: 3rem; font-size: 0.9375rem; color: var(--text-muted);">Questions? Email us at support@starsignal.co or message us via the live chat on this page.</p>
+</div>
+
+<footer>
+    © 2026 Star Signal. All rights reserved. Readings are for entertainment. See terms for details.
+</footer>
+
+</body>
+</html>

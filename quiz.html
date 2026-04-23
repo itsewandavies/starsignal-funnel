@@ -3,507 +3,1009 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cosmic Blueprint Quiz | Star Signal</title>
+    <title>Cosmic Blueprint Quiz | Star Signal</title>
+    <meta name="description" content="9-question quiz to decode your cosmic blueprint and reveal your destiny.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         :root {
             --bg-cream: #FDFBF7;
+            --bg-alt: #F6F3EC;
             --text-main: #2C2828;
+            --text-muted: #5A5252;
             --accent-gold: #D4AF37;
             --accent-gold-dark: #B89600;
+            --accent-lavender: #D8D0E3;
+            --white: #FFFFFF;
+            --footer-bg: #2B233D;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-body);
             background-color: var(--bg-cream);
             color: var(--text-main);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
-        
-        .quiz-container {
-            max-width: 600px;
+
+        .container {
+            width: 100%;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 2rem 1.25rem;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            padding: 0 1.25rem;
         }
-        
-        .quiz-header {
+
+        header {
+            padding: 1.5rem 1.25rem;
             text-align: center;
-            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
         }
-        
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-style: italic;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .brand-logo svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-gold);
+        }
+
+        .quiz-progress {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+            font-weight: 500;
+        }
+
         .progress-bar {
-            height: 4px;
-            background: #f0f0f0;
-            border-radius: 2px;
-            margin-bottom: 2rem;
+            width: 100%;
+            height: 3px;
+            background: var(--bg-alt);
+            border-radius: 3px;
+            margin-top: 1rem;
             overflow: hidden;
         }
-        
+
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
             width: 0%;
             transition: width 0.3s ease;
         }
-        
-        .question-section {
-            display: none;
-            animation: fadeIn 0.3s ease;
+
+        main {
+            padding: 2rem 0 4rem 0;
+            min-height: calc(100vh - 200px);
         }
-        
-        .question-section.active {
+
+        .quiz-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .quiz-section.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        h2 {
+
+        .section-headline {
+            font-family: var(--font-heading);
             font-size: 1.5rem;
-            margin-bottom: 0.5rem;
             color: var(--text-main);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
         }
-        
-        .question-subtitle {
-            font-size: 0.875rem;
-            color: #5A5252;
+
+        .section-subline {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .question-label {
+            font-size: 1.0625rem;
+            font-weight: 500;
+            color: var(--text-main);
             margin-bottom: 1.5rem;
+            line-height: 1.4;
         }
-        
-        .options {
+
+        /* Single Select Options */
+        .options-single {
             display: flex;
             flex-direction: column;
             gap: 1rem;
             margin-bottom: 2rem;
         }
-        
-        .option {
-            padding: 1rem;
-            border: 2px solid #e0e0e0;
+
+        .option-button {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--accent-lavender);
             border-radius: 12px;
+            background: var(--white);
             cursor: pointer;
-            transition: all 0.3s ease;
-            background: white;
+            transition: var(--transition-smooth);
             text-align: left;
         }
-        
-        .option:hover {
+
+        .option-button:hover {
             border-color: var(--accent-gold);
-            background: #faf8f5;
+            background: rgba(212, 175, 55, 0.03);
+            transform: translateX(4px);
         }
-        
-        .option input[type="radio"],
-        .option input[type="checkbox"] {
-            margin-right: 0.5rem;
-        }
-        
-        .option.selected {
+
+        .option-button.selected {
             border-color: var(--accent-gold);
-            background: #f0eae0;
+            background: rgba(212, 175, 55, 0.08);
         }
-        
-        .input-field {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-family: inherit;
+
+        .option-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-lavender);
+            border-radius: 50%;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        .option-button.selected .option-radio {
+            border-color: var(--accent-gold);
+            background: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .option-text {
+            flex: 1;
+        }
+
+        .option-text h4 {
+            font-family: var(--font-body);
             font-size: 1rem;
-            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
         }
-        
-        .input-field:focus {
+
+        .option-text p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Multi-Select Options */
+        .options-multi {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid var(--accent-lavender);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .checkbox-option:hover {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.03);
+        }
+
+        .checkbox-option.selected {
+            border-color: var(--accent-gold);
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent-lavender);
+            border-radius: 4px;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+        }
+
+        .checkbox-option.selected .checkbox {
+            border-color: var(--accent-gold);
+            background: var(--accent-gold);
+        }
+
+        .checkbox::after {
+            content: '✓';
+            color: var(--white);
+            font-size: 0.75rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .checkbox-option.selected .checkbox::after {
+            opacity: 1;
+        }
+
+        .checkbox-label {
+            font-size: 1rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        /* Date Input */
+        .date-picker {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .date-input {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .date-input label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .date-input input,
+        .date-input select {
+            padding: 0.75rem;
+            border: 2px solid var(--accent-lavender);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-main);
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .date-input input:focus,
+        .date-input select:focus {
             outline: none;
             border-color: var(--accent-gold);
-            background: #faf8f5;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
         }
-        
+
+        /* Time Input */
+        .time-picker {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            align-items: flex-end;
+        }
+
+        .time-input {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .time-input label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .time-input input {
+            padding: 0.75rem;
+            border: 2px solid var(--accent-lavender);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-main);
+            background: var(--white);
+        }
+
+        .time-input input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .time-meridiem {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .meridiem-btn {
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--accent-lavender);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .meridiem-btn.selected {
+            border-color: var(--accent-gold);
+            background: var(--accent-gold);
+            color: var(--white);
+        }
+
+        /* Checkbox for time unknown */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--accent-lavender);
+            border-radius: 8px;
+            background: rgba(212, 175, 55, 0.02);
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: var(--accent-gold);
+        }
+
+        .checkbox-wrapper label {
+            cursor: pointer;
+            font-size: 0.9375rem;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        /* Text Input */
+        .text-input {
+            margin-bottom: 2rem;
+        }
+
+        .text-input input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid var(--accent-lavender);
+            border-radius: 8px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            color: var(--text-main);
+            background: var(--white);
+            transition: var(--transition-smooth);
+        }
+
+        .text-input input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .text-input input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.6;
+        }
+
+        /* Copy Below Input */
+        .copy-below {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-top: 1rem;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* Button Group */
         .button-group {
             display: flex;
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
+            justify-content: space-between;
         }
-        
-        button {
-            flex: 1;
-            padding: 1rem;
+
+        .btn {
+            padding: 1rem 2rem;
             border: none;
             border-radius: 8px;
+            font-family: var(--font-body);
             font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
             font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
         }
-        
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-muted);
+            border: 2px solid var(--accent-lavender);
+            flex: 0 1 auto;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-gold);
+            color: var(--accent-gold-dark);
+        }
+
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
-            color: white;
+            color: var(--white);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+            flex: 1;
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
         }
-        
+
         .btn-primary:disabled {
             opacity: 0.5;
             cursor: not-allowed;
+            transform: none;
         }
-        
-        .btn-secondary {
-            background: white;
-            border: 2px solid #e0e0e0;
-            color: var(--text-main);
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--accent-gold);
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 2rem;
-        }
-        
-        .spinner {
+
+        /* Loading State */
+        .loading-spinner {
             display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f0f0f0;
-            border-top-color: var(--accent-gold);
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: var(--white);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 0.8s linear infinite;
         }
-        
+
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        
-        .loading-text {
-            margin-top: 1rem;
-            color: #5A5252;
-            font-size: 0.875rem;
+
+        footer {
+            background: var(--footer-bg);
+            color: var(--white);
+            padding: 2rem 1.25rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        @media (max-width: 640px) {
+            .date-picker {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn-secondary {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <div class="quiz-header">
-        <h1 style="font-size: 1.5rem; margin-bottom: 0.25rem;">✨ Decode Your Cosmic Blueprint</h1>
-        <p style="color: #5A5252; font-size: 0.875rem;">Answer 9 quick questions to reveal your personalized reading</p>
+<header>
+    <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z" fill="currentColor"/>
+        </svg>
+        Star Signal
     </div>
-    
+    <div class="quiz-progress"><span id="current-q">1</span> of 9 questions</div>
     <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
+        <div class="progress-fill" id="progress"></div>
     </div>
-    
-    <!-- Q1: Commitment Opener -->
-    <div class="question-section active" data-q="1">
-        <h2>Before we decode your blueprint, one quick question...</h2>
-        <p class="question-subtitle">Do you ever feel like something bigger is trying to guide you — but you can't quite hear the message?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q1" value="yes_constantly">
-                Yes — I feel it constantly
-            </label>
-            <label class="option">
-                <input type="radio" name="q1" value="sometimes_lately">
-                Sometimes — especially lately
-            </label>
-            <label class="option">
-                <input type="radio" name="q1" value="unsure">
-                I'm not sure, but I want to find out
-            </label>
-            <label class="option">
-                <input type="radio" name="q1" value="curious">
-                No, but I'm curious
-            </label>
+</header>
+
+<main>
+    <div class="container">
+
+        <!-- QUESTION 1: Commitment Opener -->
+        <div class="quiz-section active" data-question="1">
+            <h2 class="section-headline">Before we decode your blueprint, one quick question...</h2>
+            <p class="question-label">Do you ever feel like something bigger is trying to guide you — but you can't quite hear the message?</p>
+            <div class="options-single">
+                <button class="option-button" data-value="constantly">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Yes — I feel it constantly</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="especially_lately">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Sometimes — especially lately</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="not_sure">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>I'm not sure, but I want to find out</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="curious">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>No, but I'm curious</h4>
+                    </div>
+                </button>
+            </div>
         </div>
-    </div>
-    
-    <!-- Q2: Gender -->
-    <div class="question-section" data-q="2">
-        <h2>Let's personalize your reading</h2>
-        <p class="question-subtitle">I identify as...</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q2" value="woman">
-                Woman
-            </label>
-            <label class="option">
-                <input type="radio" name="q2" value="man">
-                Man
-            </label>
-            <label class="option">
-                <input type="radio" name="q2" value="non_binary">
-                Non-binary / Prefer not to say
-            </label>
+
+        <!-- QUESTION 2: Gender/Identity -->
+        <div class="quiz-section" data-question="2">
+            <h2 class="section-headline">Let's personalize your reading</h2>
+            <p class="question-label">I identify as...</p>
+            <div class="options-single">
+                <button class="option-button" data-value="woman">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Woman</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="man">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Man</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="non_binary">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Non-binary / Prefer not to say</h4>
+                    </div>
+                </button>
+            </div>
         </div>
-    </div>
-    
-    <!-- Q3: Birth Date -->
-    <div class="question-section" data-q="3">
-        <h2>Your birth date holds the first key</h2>
-        <p class="question-subtitle">When were you born?</p>
-        <input type="date" id="birthDate" class="input-field" name="q3">
-        <p style="font-size: 0.875rem; color: #5A5252; margin-bottom: 1rem;">Your birth date reveals your Life Path Number — one of the most powerful forces in numerology. It determines your destiny, your ideal partner, and your wealth cycle.</p>
-    </div>
-    
-    <!-- Q4: Birth Time -->
-    <div class="question-section" data-q="4">
-        <h2>Now for something most people don't know...</h2>
-        <p class="question-subtitle">What time were you born?</p>
-        <input type="time" id="birthTime" class="input-field" name="q4_time">
-        <label class="option" style="margin-bottom: 1rem;">
-            <input type="checkbox" id="noTime" name="q4_unknown">
-            I don't know my exact birth time
-        </label>
-        <p style="font-size: 0.875rem; color: #5A5252;">Your exact birth time determines your Rising Sign — the mask you show the world. If you don't know it, that's okay. We'll use advanced numerology to fill in the gaps.</p>
-    </div>
-    
-    <!-- Q5: Birth Location -->
-    <div class="question-section" data-q="5">
-        <h2>The final piece of your cosmic coordinates</h2>
-        <p class="question-subtitle">What city were you born in?</p>
-        <input type="text" id="birthCity" class="input-field" name="q5" placeholder="City, Country">
-        <p style="font-size: 0.875rem; color: #5A5252;">The geographic location of your birth affects your astrological house placements. This is what separates a real reading from a generic horoscope.</p>
-    </div>
-    
-    <!-- Q6: Life Area -->
-    <div class="question-section" data-q="6">
-        <h2>Your blueprint is 73% decoded... Now tell us where you need clarity most.</h2>
-        <p class="question-subtitle">Which area of your life needs the most cosmic guidance right now?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q6" value="love">
-                💘 Love & Relationships
-            </label>
-            <label class="option">
-                <input type="radio" name="q6" value="money">
-                💰 Money & Abundance
-            </label>
-            <label class="option">
-                <input type="radio" name="q6" value="purpose">
-                🔮 Life Purpose & Career
-            </label>
-            <label class="option">
-                <input type="radio" name="q6" value="spiritual">
-                🧿 Spiritual Growth & Awakening
-            </label>
+
+        <!-- QUESTION 3: Birth Date -->
+        <div class="quiz-section" data-question="3">
+            <h2 class="section-headline">Your birth date holds the first key</h2>
+            <p class="question-label">When were you born?</p>
+            <div class="date-picker">
+                <div class="date-input">
+                    <label>Month</label>
+                    <select id="birth-month" required>
+                        <option value="">Select Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class="date-input">
+                    <label>Day</label>
+                    <select id="birth-day" required>
+                        <option value="">Select Day</option>
+                    </select>
+                </div>
+                <div class="date-input">
+                    <label>Year</label>
+                    <input type="number" id="birth-year" min="1900" max="2024" placeholder="YYYY" required>
+                </div>
+            </div>
+            <p class="copy-below">Your birth date reveals your Life Path Number — one of the most powerful forces in numerology. It determines your destiny, your ideal partner, and your wealth cycle.</p>
         </div>
-    </div>
-    
-    <!-- Q7: Relationship Status -->
-    <div class="question-section" data-q="7">
-        <h2>Your Venus placement depends on this...</h2>
-        <p class="question-subtitle">What best describes your relationship status right now?</p>
-        <div class="options">
-            <label class="option">
-                <input type="radio" name="q7" value="single">
-                Single and searching for "the one"
-            </label>
-            <label class="option">
-                <input type="radio" name="q7" value="unsure">
-                In a relationship but unsure
-            </label>
-            <label class="option">
-                <input type="radio" name="q7" value="happy">
-                Happily committed
-            </label>
-            <label class="option">
-                <input type="radio" name="q7" value="heartbreak">
-                Recovering from heartbreak
-            </label>
-            <label class="option">
-                <input type="radio" name="q7" value="complicated">
-                Complicated — it's hard to explain 💔
-            </label>
+
+        <!-- QUESTION 4: Birth Time -->
+        <div class="quiz-section" data-question="4">
+            <h2 class="section-headline">Now for something most people don't know...</h2>
+            <p class="question-label">What time were you born?</p>
+            <div class="time-picker">
+                <div class="time-input" style="flex: 1;">
+                    <label>Hour</label>
+                    <input type="number" id="birth-hour" min="0" max="23" placeholder="00">
+                </div>
+                <div class="time-input" style="flex: 1;">
+                    <label>Minute</label>
+                    <input type="number" id="birth-minute" min="0" max="59" placeholder="00">
+                </div>
+                <div class="time-meridiem">
+                    <button class="meridiem-btn selected" data-meridiem="am">AM</button>
+                    <button class="meridiem-btn" data-meridiem="pm">PM</button>
+                </div>
+            </div>
+            <div class="checkbox-wrapper">
+                <input type="checkbox" id="unknown-time">
+                <label for="unknown-time">I don't know my exact birth time</label>
+            </div>
+            <p class="copy-below">Your exact birth time determines your Rising Sign — the mask you show the world. If you don't know it, that's okay. We'll use advanced numerology to fill in the gaps.</p>
         </div>
-    </div>
-    
-    <!-- Q8: Cosmic Signs -->
-    <div class="question-section" data-q="8">
-        <h2>One last question before your blueprint is ready...</h2>
-        <p class="question-subtitle">Have you noticed any of these "cosmic signs" in the last few weeks?</p>
-        <div class="options">
-            <label class="option">
-                <input type="checkbox" name="q8" value="repeating_numbers">
-                ☑️ Repeating numbers (11:11, 222, 333, 444)
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q8" value="deja_vu">
-                ☑️ Deja vu or unexplained coincidences
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q8" value="vivid_dreams">
-                ☑️ Vivid dreams that felt important
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q8" value="intuition">
-                ☑️ A strong intuition about someone or something
-            </label>
-            <label class="option">
-                <input type="checkbox" name="q8" value="none_yet">
-                ☑️ None of these yet
-            </label>
+
+        <!-- QUESTION 5: Birth Location -->
+        <div class="quiz-section" data-question="5">
+            <h2 class="section-headline">The final piece of your cosmic coordinates</h2>
+            <p class="question-label">What city were you born in?</p>
+            <div class="text-input">
+                <input type="text" id="birth-city" placeholder="City, Country" autocomplete="off">
+            </div>
+            <p class="copy-below">The geographic location of your birth affects your astrological house placements. This is what separates a real reading from a generic horoscope.</p>
         </div>
-    </div>
-    
-    <!-- Q9: Email -->
-    <div class="question-section" data-q="9">
-        <h2>Your Cosmic Blueprint Is Ready ✨</h2>
-        <p class="question-subtitle">Where should we send your personalized reading?</p>
-        <input type="email" id="email" class="input-field" name="q9" placeholder="your@email.com">
-        <p style="font-size: 0.875rem; color: #5A5252;">We're preparing your 40+ page Cosmic Blueprint with your Life Path Number, 2026 Forecast, Soulmate Profile, and Wealth Timeline. Your email is secure and we'll never share it.</p>
-    </div>
-    
-    <!-- Loading state -->
-    <div class="loading" id="loadingState" style="display: none;">
-        <div class="spinner"></div>
-        <div class="loading-text">
-            <p>Calculating your natal chart...</p>
-            <p>Decoding numerological sequences...</p>
-            <p>Analyzing 2026 transits...</p>
+
+        <!-- QUESTION 6: Life Area (CRITICAL FOR BACKEND) -->
+        <div class="quiz-section" data-question="6">
+            <h2 class="section-headline">Your blueprint is 73% decoded...</h2>
+            <p class="question-label">Which area of your life needs the most cosmic guidance right now?</p>
+            <div class="options-single">
+                <button class="option-button" data-value="love">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>💘 Love & Relationships</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="money">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>💰 Money & Abundance</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="purpose">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>🔮 Life Purpose & Career</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="spiritual">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>🧿 Spiritual Growth & Awakening</h4>
+                    </div>
+                </button>
+            </div>
         </div>
+
+        <!-- QUESTION 7: Relationship Status -->
+        <div class="quiz-section" data-question="7">
+            <h2 class="section-headline">Your Venus placement depends on this...</h2>
+            <p class="question-label">What best describes your relationship status right now?</p>
+            <div class="options-single">
+                <button class="option-button" data-value="single">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Single and searching for "the one"</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="unsure">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>In a relationship but unsure</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="happily_committed">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Happily committed</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="heartbreak">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Recovering from heartbreak</h4>
+                    </div>
+                </button>
+                <button class="option-button" data-value="complicated">
+                    <div class="option-radio"></div>
+                    <div class="option-text">
+                        <h4>Complicated — it's hard to explain 💔</h4>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- QUESTION 8: Belief Lock-In (Spiritual Qualifier) -->
+        <div class="quiz-section" data-question="8">
+            <h2 class="section-headline">One last question before your blueprint is ready...</h2>
+            <p class="question-label">Have you noticed any of these "cosmic signs" in the last few weeks?</p>
+            <div class="options-multi">
+                <label class="checkbox-option">
+                    <input type="checkbox" class="cosmic-sign" value="repeating_numbers">
+                    <div class="checkbox"></div>
+                    <span class="checkbox-label">☑️ Repeating numbers (11:11, 222, 333, 444)</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" class="cosmic-sign" value="deja_vu">
+                    <div class="checkbox"></div>
+                    <span class="checkbox-label">☑️ Deja vu or unexplained coincidences</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" class="cosmic-sign" value="vivid_dreams">
+                    <div class="checkbox"></div>
+                    <span class="checkbox-label">☑️ Vivid dreams that felt important</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" class="cosmic-sign" value="intuition">
+                    <div class="checkbox"></div>
+                    <span class="checkbox-label">☑️ A strong intuition about someone or something</span>
+                </label>
+                <label class="checkbox-option">
+                    <input type="checkbox" class="cosmic-sign" value="none_yet">
+                    <div class="checkbox"></div>
+                    <span class="checkbox-label">☑️ None of these yet</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- QUESTION 9: Email Capture -->
+        <div class="quiz-section" data-question="9">
+            <h2 class="section-headline">Your Cosmic Blueprint Is Ready ✨</h2>
+            <p class="question-label">Where should we send your personalized reading?</p>
+            <div class="text-input">
+                <input type="email" id="email" placeholder="your@email.com" required>
+            </div>
+            <p class="copy-below">We're preparing your 40+ page Cosmic Blueprint with your Life Path Number, 2026 Forecast, Soulmate Profile, and Wealth Timeline. Your email is secure and we'll never share it.</p>
+            <div id="loading-animation" style="display:none; text-align: center; margin-top: 2rem;">
+                <div class="loading-spinner"></div>
+                <p style="color: var(--text-muted); margin-top: 1rem; font-size: 0.9375rem;">Calculating your natal chart...<br>Decoding numerological sequences...<br>Analyzing 2026 transits...</p>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="button-group" id="nav-buttons">
+            <button class="btn btn-secondary" id="btn-back" onclick="previousQuestion()">← Back</button>
+            <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">Next →</button>
+        </div>
+
     </div>
-    
-    <div class="button-group">
-        <button class="btn-secondary" id="backBtn" onclick="previousQuestion()">← Back</button>
-        <button class="btn-primary" id="nextBtn" onclick="nextQuestion()">Next →</button>
-    </div>
-</div>
+</main>
+
+<footer>
+    © 2026 Star Signal. All rights reserved. Readings are for entertainment. See terms for details.
+</footer>
 
 <script>
-    let currentQuestion = 1;
-    const totalQuestions = 9;
+const TOTAL_QUESTIONS = 9;
+let currentQuestion = 1;
+let quizData = {
+    q1: null, // Commitment opener
+    q2: null, // Gender
+    q3: null, // Birth date
+    q4: null, // Birth time
+    q5: null, // Birth city
+    q6: null, // Life area
+    q7: null, // Relationship status
+    q8: [], // Cosmic signs (array)
+    q9: null, // Email
+};
+
+// Populate birth days
+function initializeDatePicker() {
+    const daySelect = document.getElementById('birth-day');
+    for (let i = 1; i <= 31; i++) {
+        const option = document.createElement('option');
+        option.value = i;
+        option.textContent = i;
+        daySelect.appendChild(option);
+    }
+}
+
+// Handle single-select buttons
+document.querySelectorAll('.option-button').forEach(button => {
+    button.addEventListener('click', function(e) {
+        const parent = this.closest('.options-single');
+        if (parent) {
+            parent.querySelectorAll('.option-button').forEach(btn => btn.classList.remove('selected'));
+        }
+        this.classList.add('selected');
+        const questionNum = parseInt(this.closest('.quiz-section').dataset.question);
+        quizData[`q${questionNum}`] = this.dataset.value;
+    });
+});
+
+// Handle multi-select checkboxes
+document.querySelectorAll('.cosmic-sign').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+        this.closest('.checkbox-option').classList.toggle('selected');
+        const checked = Array.from(document.querySelectorAll('.cosmic-sign:checked')).map(c => c.value);
+        quizData.q8 = checked;
+    });
+});
+
+// Handle meridiem buttons
+document.querySelectorAll('.meridiem-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        this.parentElement.querySelectorAll('.meridiem-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+    });
+});
+
+// Update time tracking
+document.getElementById('birth-hour').addEventListener('change', updateTime);
+document.getElementById('birth-minute').addEventListener('change', updateTime);
+function updateTime() {
+    const hour = document.getElementById('birth-hour').value || '00';
+    const minute = document.getElementById('birth-minute').value || '00';
+    const meridiem = document.querySelector('.meridiem-btn.selected').dataset.meridiem;
+    quizData.q4 = `${hour}:${minute} ${meridiem}`;
+}
+
+// Track birth date
+document.getElementById('birth-month').addEventListener('change', updateDate);
+document.getElementById('birth-day').addEventListener('change', updateDate);
+document.getElementById('birth-year').addEventListener('change', updateDate);
+function updateDate() {
+    const month = document.getElementById('birth-month').value;
+    const day = document.getElementById('birth-day').value;
+    const year = document.getElementById('birth-year').value;
+    if (month && day && year) {
+        quizData.q3 = `${month}/${day}/${year}`;
+    }
+}
+
+// Track birth city
+document.getElementById('birth-city').addEventListener('change', function() {
+    quizData.q5 = this.value;
+});
+
+// Track email
+document.getElementById('email').addEventListener('change', function() {
+    quizData.q9 = this.value;
+});
+
+function getCurrentQuestion() {
+    return document.querySelector(`[data-question="${currentQuestion}"]`);
+}
+
+function validateQuestion() {
+    const section = getCurrentQuestion();
     
-    const options = document.querySelectorAll('.options label');
+    switch(currentQuestion) {
+        case 1:
+            return quizData.q1 !== null;
+        case 2:
+            return quizData.q2 !== null;
+        case 3:
+            return quizData.q3 !== null;
+        case 4:
+            return quizData.q4 !== null || document.getElementById('unknown-time').checked;
+        case 5:
+            return quizData.q5 && quizData.q5.trim() !== '';
+        case 6:
+            return quizData.q6 !== null;
+        case 7:
+            return quizData.q7 !== null;
+        case 8:
+            return quizData.q8.length > 0; // At least one cosmic sign
+        case 9:
+            return quizData.q9 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(quizData.q9);
+        default:
+            return false;
+    }
+}
+
+function nextQuestion() {
+    if (!validateQuestion()) {
+        alert('Please complete this question before continuing.');
+        return;
+    }
+
+    if (currentQuestion === TOTAL_QUESTIONS) {
+        submitQuiz();
+        return;
+    }
+
+    if (currentQuestion < TOTAL_QUESTIONS) {
+        currentQuestion++;
+        updateUI();
+    }
+}
+
+function previousQuestion() {
+    if (currentQuestion > 1) {
+        currentQuestion--;
+        updateUI();
+    }
+}
+
+function updateUI() {
+    // Hide all sections
+    document.querySelectorAll('.quiz-section').forEach(s => s.classList.remove('active'));
     
-    options.forEach(option => {
-        option.addEventListener('click', function() {
-            const input = this.querySelector('input');
-            if (input.type === 'radio') {
-                const group = this.parentElement;
-                group.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
-                this.classList.add('selected');
-            } else if (input.type === 'checkbox') {
-                this.classList.toggle('selected');
-            }
-        });
+    // Show current section
+    getCurrentQuestion().classList.add('active');
+    
+    // Update progress
+    const progress = (currentQuestion / TOTAL_QUESTIONS) * 100;
+    document.getElementById('progress').style.width = progress + '%';
+    document.getElementById('current-q').textContent = currentQuestion;
+    
+    // Update button text
+    const btnNext = document.getElementById('btn-next');
+    if (currentQuestion === TOTAL_QUESTIONS) {
+        btnNext.textContent = 'Reveal My Blueprint →';
+    } else {
+        btnNext.textContent = 'Next →';
+    }
+    
+    // Show/hide back button
+    document.getElementById('btn-back').style.display = currentQuestion > 1 ? 'block' : 'none';
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function submitQuiz() {
+    const btnNext = document.getElementById('btn-next');
+    btnNext.disabled = true;
+    btnNext.innerHTML = '<span class="loading-spinner"></span>';
+    
+    // Show loading animation
+    document.getElementById('loading-animation').style.display = 'block';
+    
+    // Send to results page
+    const params = new URLSearchParams({
+        q1: quizData.q1,
+        q2: quizData.q2,
+        q3: quizData.q3,
+        q4: quizData.q4 || 'unknown',
+        q5: quizData.q5,
+        q6: quizData.q6,
+        q7: quizData.q7,
+        q8: quizData.q8.join(','),
+        q9: quizData.q9,
     });
     
-    document.querySelectorAll('input[type="text"], input[type="email"], input[type="date"], input[type="time"]').forEach(input => {
-        input.addEventListener('change', function() {
-            updateNextButton();
-        });
-    });
-    
-    function updateProgress() {
-        const progress = (currentQuestion / totalQuestions) * 100;
-        document.getElementById('progressFill').style.width = progress + '%';
-    }
-    
-    function showQuestion(num) {
-        document.querySelectorAll('.question-section').forEach(q => q.classList.remove('active'));
-        document.querySelector(`[data-q="${num}"]`).classList.add('active');
-        
-        document.getElementById('backBtn').style.display = num === 1 ? 'none' : 'block';
-        document.getElementById('nextBtn').textContent = num === totalQuestions ? 'Submit ✨' : 'Next →';
-        
-        updateProgress();
-        updateNextButton();
-    }
-    
-    function updateNextButton() {
-        const btn = document.getElementById('nextBtn');
-        const q = currentQuestion;
-        
-        let isAnswered = false;
-        
-        if (q <= 2 || q === 6 || q === 7) {
-            isAnswered = document.querySelector(`input[name="q${q}"]:checked`) !== null;
-        } else if (q === 3) {
-            isAnswered = document.getElementById('birthDate').value !== '';
-        } else if (q === 4) {
-            isAnswered = document.getElementById('noTime').checked || document.getElementById('birthTime').value !== '';
-        } else if (q === 5) {
-            isAnswered = document.getElementById('birthCity').value !== '';
-        } else if (q === 8) {
-            isAnswered = document.querySelectorAll('input[name="q8"]:checked').length > 0;
-        } else if (q === 9) {
-            isAnswered = document.getElementById('email').value !== '';
-        }
-        
-        btn.disabled = !isAnswered;
-    }
-    
-    function nextQuestion() {
-        if (currentQuestion === totalQuestions) {
-            submitQuiz();
-        } else {
-            currentQuestion++;
-            showQuestion(currentQuestion);
-            window.scrollTo(0, 0);
-        }
-    }
-    
-    function previousQuestion() {
-        if (currentQuestion > 1) {
-            currentQuestion--;
-            showQuestion(currentQuestion);
-            window.scrollTo(0, 0);
-        }
-    }
-    
-    function submitQuiz() {
-        const formData = {
-            q1: document.querySelector('input[name="q1"]:checked')?.value,
-            q2: document.querySelector('input[name="q2"]:checked')?.value,
-            q3: document.getElementById('birthDate').value,
-            q4_time: document.getElementById('birthTime').value,
-            q4_unknown: document.getElementById('noTime').checked,
-            q5: document.getElementById('birthCity').value,
-            q6: document.querySelector('input[name="q6"]:checked')?.value,
-            q7: document.querySelector('input[name="q7"]:checked')?.value,
-            q8: Array.from(document.querySelectorAll('input[name="q8"]:checked')).map(el => el.value),
-            q9: document.getElementById('email').value,
-        };
-        
-        document.getElementById('loadingState').style.display = 'block';
-        document.querySelector('.button-group').style.display = 'none';
-        
-        // Send to backend (will implement API)
-        fetch('/api/quiz-submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        })
-        .then(r => r.json())
-        .then(data => {
-            // Redirect to results page with access ID
-            window.location.href = `/results/${data.accessId}`;
-        })
-        .catch(err => {
-            console.error(err);
-            alert('Error submitting quiz. Please try again.');
-        });
-    }
-    
-    // Initialize
-    showQuestion(1);
-    
-    // Add keyboard support
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Enter') nextQuestion();
-    });
+    // Simulate 3-5 second loading
+    setTimeout(() => {
+        window.location.href = `results.html?${params.toString()}`;
+    }, 3500);
+}
+
+// Initialize
+initializeDatePicker();
+updateUI();
 </script>
 
 </body>

@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cosmic Blueprint | Star Signal</title>
+    <meta name="description" content="Your personalized cosmic blueprint reading is ready.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-cream: #FDFBF7;
+            --bg-alt: #F6F3EC;
+            --text-main: #2C2828;
+            --text-muted: #5A5252;
+            --accent-gold: #D4AF37;
+            --accent-gold-dark: #B89600;
+            --accent-lavender: #D8D0E3;
+            --accent-lavender-light: #F0EBF5;
+            --white: #FFFFFF;
+            --footer-bg: #2B233D;
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        header {
+            padding: 2rem 1.25rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .brand-logo {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-headline {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .section-subline {
+            font-size: 1.0625rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.4;
+        }
+
+        .pre-headline {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-gold-dark);
+            margin-bottom: 0.75rem;
+            display: inline-block;
+        }
+
+        /* SECTION 1: Welcome Reveal */
+        .welcome-content {
+            font-size: 1.0625rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: var(--accent-gold-dark);
+            font-weight: 600;
+        }
+
+        /* SECTION 2: Three Revelations */
+        .revelations-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .revelation-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            box-shadow: 0 4px 12px rgba(44, 40, 40, 0.03);
+        }
+
+        .revelation-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .revelation-card h3 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .revelation-card p {
+            font-size: 0.9875rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .revelation-card p + p {
+            margin-top: 1rem;
+        }
+
+        /* SECTION 3: Segmented Insight */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(240, 235, 245, 0.5) 0%, rgba(216, 208, 227, 0.1) 100%);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-gold);
+            margin: 2rem 0;
+        }
+
+        .insight-box h3 {
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .insight-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .insight-list li {
+            padding: 0.75rem 0;
+            padding-left: 1.75rem;
+            position: relative;
+            font-size: 0.9875rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .insight-list li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+        }
+
+        /* SECTION 4: Value Stack */
+        .value-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin: 2rem 0;
+        }
+
+        .value-item {
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .value-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .value-item h4 {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+        }
+
+        .value-item ul {
+            list-style: none;
+            padding-left: 1.5rem;
+        }
+
+        .value-item ul li {
+            font-size: 0.9375rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .value-item ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%);
+            padding: 3rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 3rem 0;
+            box-shadow: 0 12px 32px rgba(212, 175, 55, 0.25);
+        }
+
+        .cta-section h2 {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .cta-section p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.25rem 2.5rem;
+            background: var(--white);
+            color: var(--accent-gold-dark);
+            font-weight: 600;
+            font-size: 1.0625rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            text-shadow: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.2);
+        }
+
+        .price-badge {
+            display: inline-block;
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .price-badge .old-price {
+            text-decoration: line-through;
+            opacity: 0.7;
+            margin-right: 0.5rem;
+        }
+
+        .price-badge .new-price {
+            font-weight: 700;
+            color: var(--white);
+            font-size: 1rem;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: var(--bg-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 3rem 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .testimonial-quote {
+            font-style: italic;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin: 3rem 0;
+        }
+
+        .faq-item {
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .faq-a {
+            color: var(--text-muted);
+            font-size: 0.9375rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--white);
+            padding: 2rem 1.25rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .footer-logo {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 640px) {
+            .section-headline {
+                font-size: 1.5rem;
+            }
+
+            .cta-section {
+                padding: 2rem 1.5rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand-logo">Star Signal</div>
+</header>
+
+<main>
+    <div class="container">
+
+        <!-- SECTION 1: Welcome Reveal -->
+        <div class="section">
+            <span class="pre-headline">✨ Your Blueprint Is Ready</span>
+            <h1 class="section-headline" id="welcome-headline">Cosmic Traveler, Your Blueprint Is Ready</h1>
+            <p class="section-subline" id="welcome-subline">Your personalized cosmic reading is ready to transform your understanding of yourself.</p>
+            
+            <div class="welcome-content" id="welcome-text">
+                <p>What we're about to reveal has shocked some of our readers to tears. Based on your exact birth coordinates, your <span class="highlight" id="life-path">Life Path Number is 6</span> — which makes you part of the 8.3% of souls born under what ancient astrologers called "The Awakened Path."</p>
+            </div>
+        </div>
+
+        <!-- SECTION 2: Three Revelations -->
+        <div class="section">
+            <h2 class="section-headline">Here Are 3 Things Your Blueprint Just Revealed About You</h2>
+            
+            <div class="revelations-grid">
+                <!-- Revelation 1: Personality -->
+                <div class="revelation-card">
+                    <div class="revelation-icon">☀️</div>
+                    <h3>You've Always Felt "Different" — And Here's Why</h3>
+                    <p>Your blueprint shows that you carry what astrologers call a "double-activated intuitive channel." This means you often sense things before they happen — and other people rarely understand you at the deepest level.</p>
+                    <p>You've likely felt misunderstood most of your life. You may have been called "too sensitive" or "too much" by people who couldn't see what you see. This is not a flaw — it's a gift that most people don't have.</p>
+                </div>
+
+                <!-- Revelation 2: Past Pattern -->
+                <div class="revelation-card">
+                    <div class="revelation-icon">🌙</div>
+                    <h3>Something In The Last 18 Months Has Shifted You Forever</h3>
+                    <p id="saturn-text">Your natal chart shows that between now and recently, you entered what's called a "Saturn Activation Window." During this time, something happened — a loss, a revelation, a quiet breakdown, or a relationship ending — that changed how you see yourself.</p>
+                    <p>You may not have told anyone how deeply this affected you. But your blueprint sees it. And what's coming next in 2026 is directly connected to what you went through.</p>
+                </div>
+
+                <!-- Revelation 3: Future Hook -->
+                <div class="revelation-card">
+                    <div class="revelation-icon">⭐</div>
+                    <h3 id="threshold-headline">A Major Life Shift Is Coming — You Need To Be Ready</h3>
+                    <p id="threshold-text">Based on your planetary transits, you will experience what's called a "Threshold Event" — a window where a critical opportunity, person, or realization enters your life.</p>
+                    <p>What this event is, and whether you recognize it when it arrives, depends entirely on whether you've decoded the rest of your blueprint. Most people miss their Threshold Event because they weren't paying attention. Those who catch it often describe it as "the turning point of my entire life."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Segmented Insight (based on Q6) -->
+        <div class="section" id="segmented-section">
+            <h2 class="section-headline">And Because You Told Us Your Priority Right Now...</h2>
+            
+            <div class="insight-box" id="insight-content">
+                <!-- Dynamic content based on life area selection -->
+            </div>
+        </div>
+
+        <!-- SECTION 4: Value Stack -->
+        <div class="section">
+            <h2 class="section-headline">This Is Just The Surface. Your Full Blueprint Contains...</h2>
+            
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">What you've just read is the top 2% of your complete Cosmic Blueprint. The full reading — over 40 pages, custom-generated for your exact birth data — contains:</p>
+            
+            <div class="value-items">
+                <div class="value-item">
+                    <h4>✨ Your Complete Numerology Profile</h4>
+                    <ul>
+                        <li>Your Life Path Number and what it means</li>
+                        <li>Your Destiny Number — your soul's ultimate mission</li>
+                        <li>Your Soul Urge Number — what you secretly want most</li>
+                        <li>Your Personality Number — the mask you wear and the truth underneath</li>
+                    </ul>
+                </div>
+
+                <div class="value-item">
+                    <h4>✨ Your 2026 Month-By-Month Forecast</h4>
+                    <ul>
+                        <li>One page for every month of 2026, customized to your birth data</li>
+                        <li>The dominant energy for each month (Growth, Release, Portal, Pause, Acceleration)</li>
+                        <li>Your 3 power days when to take big action</li>
+                        <li>Your 2 caution days when to rest and wait</li>
+                        <li>What to watch for, what to release, what to pursue</li>
+                    </ul>
+                </div>
+
+                <div class="value-item">
+                    <h4>✨ Your Soulmate Blueprint & Love Profile</h4>
+                    <ul>
+                        <li>The first letter of your soulmate's name</li>
+                        <li>Their Life Path Number (94% compatibility indicator)</li>
+                        <li>The month you're most likely to meet them — or recognize them if already in your life</li>
+                        <li>The 3 "false matches" you may have mistaken for your soulmate</li>
+                        <li>The cosmic block keeping them from arriving and the ritual to clear it</li>
+                    </ul>
+                </div>
+
+                <div class="value-item">
+                    <h4>✨ Your Wealth Timeline & Abundance Windows</h4>
+                    <ul>
+                        <li>Your Wealth Archetype (1 of 9 — determines how money flows to you)</li>
+                        <li>Your 3-month Abundance Window in 2026 (the rare period when wealth opens)</li>
+                        <li>The hidden money block inherited from your family line</li>
+                        <li>Your ideal income path based on numerological design</li>
+                        <li>The specific amount you're cosmically "coded" to earn</li>
+                    </ul>
+                </div>
+
+                <div class="value-item">
+                    <h4>✨ Your Threshold Event Calendar</h4>
+                    <ul>
+                        <li>The exact date range for your Threshold Event</li>
+                        <li>The life area it will appear in</li>
+                        <li>The signs that will confirm it's happening</li>
+                        <li>How to catch it instead of missing it</li>
+                    </ul>
+                </div>
+
+                <div class="value-item">
+                    <h4>✨ Your Morning Cosmic Ritual</h4>
+                    <ul>
+                        <li>Your ideal 8-minute morning practice, designed for your profile</li>
+                        <li>The affirmation customized to your Life Path</li>
+                        <li>The crystal to hold (if you have access — optional)</li>
+                        <li>The 3-minute breathwork aligned with your energetic signature</li>
+                        <li>The specific intention to set based on your current moon phase</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h2>Unlock Your Cosmic Blueprint Now</h2>
+            <p>Normally $39 — Today, For New Readers, Just $19</p>
+            <button class="cta-button" onclick="window.location.href='checkout.html'">🔮 YES — Send Me My Full Blueprint For $19</button>
+            <div class="price-badge">
+                <span class="old-price">$39</span>
+                <span class="new-price">$19 ✨</span>
+                <span style="color: rgba(255,255,255,0.8);">(50% off — today only)</span>
+            </div>
+        </div>
+
+        <!-- Trust Elements -->
+        <div style="text-align: center; margin: 2rem 0; font-size: 0.875rem; color: var(--text-muted);">
+            <div>🔒 Secure checkout · SSL encrypted · Instant PDF delivery</div>
+            <div style="margin-top: 0.5rem;">⏳ 247 Blueprints unlocked in the last hour · ⭐⭐⭐⭐⭐ 4.9/5 from 2,847,391 readings</div>
+        </div>
+
+        <!-- Guarantee -->
+        <div class="section" style="background: rgba(240, 235, 245, 0.3); padding: 2rem; border-radius: 12px;">
+            <h3 style="font-size: 1.125rem; color: var(--text-main); margin-bottom: 1rem;">The "If It Doesn't Feel Written For You, Don't Pay" Promise</h3>
+            <p style="color: var(--text-muted); line-height: 1.7;">Your Cosmic Blueprint comes with a 60-day, no-questions-asked guarantee. Read it. Sit with it. See how accurate it is. If — within 60 days — you feel like it wasn't worth every penny, email our team and we'll refund every cent. You keep the Blueprint. We can offer this guarantee because 97.3% of women who receive their Blueprint tell us it was more accurate than any reading they've ever had.</p>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="testimonials-section">
+            <h2 class="section-headline">What Women Around The World Are Saying</h2>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"Page 14 made me cry. It described my relationship with my father — something I've never even told my therapist. I don't know how this Blueprint knew. I'm ordering one for my sister tonight."</p>
+                    <p class="testimonial-author">— Sarah M., 34 · Ohio, USA ⭐⭐⭐⭐⭐</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"My Threshold Event window was 'late March.' I met my now-fiancé on March 24th. I showed him the Blueprint and he went pale. This is real."</p>
+                    <p class="testimonial-author">— Jennifer T., 29 · Melbourne, AUS ⭐⭐⭐⭐⭐</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">"I've paid €200 for readings that weren't half this accurate. My Wealth Archetype section explained why every business I've tried failed and what I should actually be doing. I quit my job last month. Terrifying and exciting."</p>
+                    <p class="testimonial-author">— Maria R., 41 · Madrid, Spain ⭐⭐⭐⭐⭐</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-section">
+            <h2 class="section-headline">Questions Before You Unlock Your Blueprint?</h2>
+            
+            <div class="faq-item">
+                <p class="faq-q">Is this really personalized, or is it generic?</p>
+                <p class="faq-a">Every Blueprint is custom-generated using your exact birth date, time, and location. No two Blueprints are the same. You'll see your specific numbers, specific forecast months, and specific Threshold Event windows.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">How quickly will I get it?</p>
+                <p class="faq-a">Instantly. The moment you complete checkout, your Blueprint is emailed to you as a downloadable PDF. Most people are reading it within 60 seconds.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">I don't know my exact birth time — is my Blueprint still accurate?</p>
+                <p class="faq-a">Yes. We use advanced numerological calculations to compensate when birth time isn't known. Your Blueprint will still be deeply accurate.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">Is $19 all I pay? Any subscriptions?</p>
+                <p class="faq-a">$19 is a one-time payment. No subscription. No hidden fees. Your Blueprint is yours forever.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-q">What if it doesn't feel accurate to me?</p>
+                <p class="faq-a">You have 60 days to request a full refund. You keep the Blueprint. No questions, no hassle.</p>
+            </div>
+        </div>
+
+        <!-- Final CTA -->
+        <div class="section" style="text-align: center;">
+            <h2 class="section-headline">Your Blueprint Is Waiting</h2>
+            <p style="color: var(--text-muted); margin-bottom: 2rem; font-size: 1rem;">You came to this page because something inside you said yes. Whatever brought you here — your Blueprint already exists. It was encoded into you the moment you were born. The only question is whether you'll open it.</p>
+            <button class="cta-button" style="background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-dark) 100%); color: var(--white); box-shadow: 0 12px 32px rgba(212, 175, 55, 0.25);" onclick="window.location.href='checkout.html'">🔮 YES — Unlock My Cosmic Blueprint For $19</button>
+        </div>
+
+        <!-- PS -->
+        <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(212, 175, 55, 0.1); font-size: 0.9375rem; color: var(--text-muted); line-height: 1.7;">
+            <p><strong>P.S.</strong> — One more thing. The $19 price is only held while you're on this page. If you close this tab and come back later, the price returns to $39. This isn't a marketing tactic — it's because we're capped on how many $19 Blueprints we deliver each day. Once today's cap is reached, the price goes back up. If you're meant to have this Blueprint, now is the moment.</p>
+        </div>
+
+    </div>
+</main>
+
+<footer>
+    <div class="footer-logo">Star Signal</div>
+    © 2026 Star Signal. All rights reserved. Readings are for entertainment. See terms for details.
+</footer>
+
+<script>
+// Parse URL parameters
+const params = new URLSearchParams(window.location.search);
+const q1 = params.get('q1');
+const q2 = params.get('q2');
+const q3 = params.get('q3');
+const q6 = params.get('q6');
+const q7 = params.get('q7');
+const q9 = params.get('q9');
+
+// Numerology: calculate Life Path Number from birth date
+function calculateLifePath(dateStr) {
+    const [month, day, year] = dateStr.split('/');
+    let sum = 0;
+    
+    // Add digits of month
+    for (let digit of month) sum += parseInt(digit);
+    // Add digits of day
+    for (let digit of day) sum += parseInt(digit);
+    // Add digits of year
+    for (let digit of year) sum += parseInt(digit);
+    
+    // Reduce to single digit (or master number 11, 22, 33)
+    while (sum > 9) {
+        if (sum === 11 || sum === 22 || sum === 33) break;
+        let newSum = 0;
+        for (let digit of sum.toString()) newSum += parseInt(digit);
+        sum = newSum;
+    }
+    
+    return sum;
+}
+
+// Extract first name from email
+function extractFirstName(email) {
+    const name = email.split('@')[0];
+    // Capitalize
+    return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+// Format date for display
+function formatDate(dateStr) {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const [month, day, year] = dateStr.split('/');
+    return `${months[parseInt(month) - 1]} ${parseInt(day)}, ${year}`;
+}
+
+// Calculate approximate Saturn Window (18 months ago)
+function getSaturnWindow(dateStr) {
+    const [month, day, year] = dateStr.split('/');
+    const birthDate = new Date(year, month - 1, day);
+    const now = new Date();
+    const eighteenMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 18, now.getDate());
+    
+    return `between ${eighteenMonthsAgo.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} and now`;
+}
+
+// Calculate Threshold Event (2-4 months out)
+function getThresholdMonth(dateStr) {
+    const now = new Date();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const monthsOut = 2 + Math.floor(Math.random() * 3); // 2-4 months
+    const thresholdDate = new Date(now.getFullYear(), now.getMonth() + monthsOut, now.getDate());
+    return months[thresholdDate.getMonth()];
+}
+
+// Populate dynamic content
+function initializeResults() {
+    const firstName = extractFirstName(q9);
+    const lifePath = calculateLifePath(q3);
+    const formattedDate = formatDate(q3);
+    const saturnWindow = getSaturnWindow(q3);
+    const thresholdMonth = getThresholdMonth(q3);
+    
+    // Welcome section
+    document.getElementById('welcome-headline').textContent = `${firstName}, Your Blueprint Is Ready`;
+    document.getElementById('welcome-subline').textContent = `Born ${formattedDate} — this is one of the rarest birth blueprints we've ever decoded.`;
+    document.getElementById('life-path').textContent = `your Life Path Number is ${lifePath}`;
+    
+    // Saturn window
+    document.getElementById('saturn-text').textContent = `Your natal chart shows that ${saturnWindow}, you entered what's called a "Saturn Activation Window." During this time, something happened — a loss, a revelation, a quiet breakdown, or a relationship ending — that changed how you see yourself.`;
+    
+    // Threshold event
+    document.getElementById('threshold-headline').textContent = `A Major Life Shift Is Coming In ${thresholdMonth} — You Need To Be Ready`;
+    document.getElementById('threshold-text').textContent = `Based on your planetary transits, between now and 3 months from ${thresholdMonth}, you will experience what's called a "Threshold Event" — a window where a critical opportunity, person, or realization enters your life.`;
+    
+    // Segmented insight based on Q6
+    const insightContent = document.getElementById('insight-content');
+    
+    if (q6 === 'love') {
+        insightContent.innerHTML = `
+            <h3>And Because You Told Us Love & Relationships Is Your Priority Right Now...</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Your Venus placement combined with your Life Path ${lifePath} reveals something critical: your soulmate's energy is already active in your life — but you might be overlooking them, or caught up in someone who isn't your true match.</p>
+            <ul class="insight-list">
+                <li>The first letter of your soulmate's name (reveals specific energy signature)</li>
+                <li>The month you're most likely to meet them — or recognize them if already in your life</li>
+                <li>The "cosmic block" preventing the relationship from activating</li>
+                <li>Your ideal partner's Life Path Number (94% compatibility is predictive)</li>
+            </ul>
+        `;
+    } else if (q6 === 'money') {
+        insightContent.innerHTML = `
+            <h3>And Because You Told Us Money & Abundance Is Your Priority Right Now...</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Your blueprint reveals that you're currently in a "Wealth Dormancy" phase — meaning money has felt harder than it should be. This isn't because you're doing anything wrong. It's because you're operating against your financial archetype.</p>
+            <ul class="insight-list">
+                <li>Your Wealth Archetype (1 of 9 — most people never discover theirs)</li>
+                <li>The 3-month window in 2026 when your abundance portal opens</li>
+                <li>The hidden money block from your childhood that's still affecting you</li>
+                <li>Your ideal income path based on your numerological design</li>
+            </ul>
+        `;
+    } else if (q6 === 'purpose') {
+        insightContent.innerHTML = `
+            <h3>And Because You Told Us Life Purpose & Career Is Your Priority Right Now...</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Your blueprint reveals something most people never discover: you were born with a specific Life Mission encoded into your numbers — but most people never align with theirs and spend decades in the wrong career or path.</p>
+            <ul class="insight-list">
+                <li>Your true Life Purpose (in one sentence — the mission you're here to fulfill)</li>
+                <li>The 3 signs that you're currently misaligned</li>
+                <li>The year your Purpose Portal activates (it may already be open)</li>
+                <li>The specific steps to realign with your cosmic design</li>
+            </ul>
+        `;
+    } else if (q6 === 'spiritual') {
+        insightContent.innerHTML = `
+            <h3>And Because You Told Us Spiritual Growth & Awakening Is Your Priority Right Now...</h3>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Your blueprint shows that you're in the middle of what's called a "Quantum Awakening" — a period where your psychic sensitivity, intuition, and spiritual gifts are rapidly expanding. Most people ignore this and suppress their abilities. You're being shown them for a reason.</p>
+            <ul class="insight-list">
+                <li>Your 3 dominant spiritual gifts (most people only know 1)</li>
+                <li>The practices that will accelerate your awakening in 2026</li>
+                <li>Your past-life signature and how it's affecting you now</li>
+                <li>The specific chakra imbalance slowing your progress</li>
+            </ul>
+        `;
+    }
+}
+
+// Initialize on load
+initializeResults();
+</script>
+
+</body>
+</html>
